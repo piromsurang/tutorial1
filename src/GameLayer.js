@@ -1,3 +1,4 @@
+var score = 0;
 var GameLayer = cc.LayerColor.extend({
     init: function() {
         this._super( new cc.Color( 127, 127, 127, 255 ) );
@@ -14,6 +15,10 @@ var GameLayer = cc.LayerColor.extend({
         this.gold.randomPosition();
         
         this.scheduleUpdate();
+        
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
+	    this.scoreLabel.setPosition( new cc.Point( 750, 550 ) );
+	    this.addChild( this.scoreLabel );
         
 
         
@@ -46,6 +51,8 @@ var GameLayer = cc.LayerColor.extend({
     update: function() {
         if ( this.gold.closeTo( this.ship ) ){
             this.gold.randomPosition();
+            score += 5;
+            this.scoreLabel.setString( score + '' );
         }
     }
 });
